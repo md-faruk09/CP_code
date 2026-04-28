@@ -1,93 +1,38 @@
-
-/*    
-
-
-████████████████████████████████████████████████████
-██                                                ██
-██    ███████╗ █████╗ ██████╗ ██╗   ██╗██╗  ██╗   ██
-██    ██╔════╝██╔══██╗██╔══██╗██║   ██║██║ ██╔╝   ██
-██    █████╗  ███████║██████╔╝██║   ██║█████╔╝    ██
-██    ██╔══╝  ██╔══██║██╔══██╗██║   ██║██╔═██╗    ██
-██    ██║     ██║  ██║██║  ██║╚██████╔╝██║  ██╗   ██
-██    ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ██
-████████████████████████████████████████████████████
-
-*/
-
-
 #include <bits/stdc++.h>
 using namespace std;
  
 #define nl "\n"
-#define nf cout<<endl
-
+#define nf cout<<"\n"
 #define int long long
-#define uint unsigned long long int
-
 #define cy cout << "YES\n"
 #define cn cout << "NO\n"
-
 #define fr(N)for(int i=0;i<N;i++)
-#define frs(i,s,n) for(int i=s;i<(n);i++)
-#define fr1(i,n) for(int i=1;i <= (n);i++)
-#define vin(a) for(auto &i:a)cin >> i
-
-#define all(x) (x).begin(), (x).end()
-#define srt(v) sort(v.begin(),v.end())
-#define rsrt(v) sort(v.rbegin(),v.rend())
-
+#define frg(x,a) for(auto x:a)
 #define vll vector<long long>
-#define vi vector<int>
-#define vec(v,n) vector<int> v(n)
-#define vec2(v,x,y) vector<vector<int>> v(x, vector<int>(y));
-
-#define take(x) int x; cin >> x ;while(x--)
-#define get(v,n) vec(v,n);fr(i,n)cin >> v[i]
-
-#define mxe(v) *max_element(v.begin(),v.end())
-#define mne(v) *min_element(v.begin(),v.end())
-
-#define psb(a) push_back(a)
-#define ppb pop_back()
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
-#define sz(v)(int)(v.size())
-#define sq(x) sqrtl(x)
 
-#define ff first
-#define ss second
+#define fastio ios_base::sync_with_stdio(0);cout.tie(nullptr);cin.tie(nullptr)
 
-#define popcnt(x) __builtin_popcount11(x)
-#define clz(x) __builtin_clzll(x)
-#define fastio ios :: sync_with_stdio(false);cin.tie(0);cout.tie(0)
-
-
+void solve(){
+    int n;cin>>n;
+    map<int,int>mp;
+    fr(n){
+        int x;cin>>x;
+        mp[x]++;
+    }
+    int ans=0;
+    ans+=mp[3];
+    int boy=0;
+    if(mp[1]>mp[3]) boy=mp[4]*4+mp[2]*2+mp[1]-mp[3];
+    else boy=mp[4]*4+mp[2]*2;
+    //cout<<boy<<nl;
+    ans+=ceil(1.0*boy/4.0);
+    cout<<ans<<nl;
+}
 int32_t main() {
     fastio;
-    
-    int n;cin>>n;
-    map<int ,int >mp;
-    fr(n){
-        int t;cin>>t;
-        mp[t]++;
-    }
-    
-    int ans=mp[4]+mp[2]/2;
-    mp[2]%=2;
-
-    if(mp[3]>mp[1]){
-        ans+=mp[1];
-        ans+=mp[3]-mp[1]+mp[2];
-    }
-    else  if( mp[3]<mp[1]){
-        ans+=mp[3]; 
-        mp[1]-=mp[3];
-        ans+=ceil(((mp[2]*2)+mp[1])/4.0);
-    } else{
-        ans+=mp[3];
-        ans+=mp[2];
-    }
-    cout<<ans<<nl;
-
+    int t=1;
+    while(t--)solve();
     return 0;
 }

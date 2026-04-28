@@ -75,8 +75,7 @@ void solve(){                     //O(t)
 int32_t main() {                    //O(t*n)
     fastio;
  
-    int t=1;
-    cin>>t;
+    int t=1; cin>>t;
     while(t--)solve();
     return 0;
 }
