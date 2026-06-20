@@ -1,84 +1,65 @@
-// write a program that has a class named Arrau_sort, that has  priveat    integer arry & sort_array function that function  sort thea value of the integter array data .moreorder  if has it had also construr to initialixe the array now use asn show both shallow & deep  coyp suing copy constructor
-
-
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-class Array_sort {
-private:
-    int *arr;
-    int size;
+bool cmp(pair<int,int> a,pair<int,int> b){
+    return max(a.first,a.second)> max(b.first,b.second);
+}
 
-public:
-    Array_sort(int a[], int s) {
-        size = s; 
-        arr = new int[size];
+bool cmp1(pair<int,int> a, pair<int,int> b){
+    return a.second>b.second;
+}
 
-        for(int i = 0; i < size; i++) {
-            arr[i] = a[i];
-        }
-    }    Array_sort(const Array_sort &obj) {
-        size = obj.size;
-        arr = obj.arr;   // same memory
-        cout << "Shallow Copy Constructor Called\n";
+void solve(){
+    int n,a,k;cin>>n>>a>>k;
+    vector<pair<int,int>> v(n);
+    for(int i=0;i<n;i++){
+        cin>>v[i].first;
+        cin>>v[i].second;
     }
-
-    // ✅ Deep Copy Function
-    Array_sort deepCopy() {
-        Array_sort temp(arr, size);
-        for(int i = 0; i < size; i++) {
-            temp.arr[i] = arr[i];
+    sort(v.begin(),v.end(),cmp);
+    for(auto [x,y]:v)cout<<x<<' '<<y<<'\n';
+    long long ans=0;
+    int pos=0;
+    for(int i=0;i<n;i++){
+        if(a>0 && k>0 && v[i].first>=v[i].second){
+            ans+=v[i].first;
+            a--;
         }
-        return temp;
-    }
-
-    // Sorting function
-    void sort_array() {
-        for(int i = 0; i < size - 1; i++) {
-            for(int j = i + 1; j < size; j++) {
-                if(arr[i] > arr[j]) {
-                    int temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
-                }
-            }
+        else if(k>0 && a>0 && v[i].second>=v[i].first){
+            ans+=v[i].second;
+            k--;
+        }
+        else {
+            pos=i;
+            break;
         }
     }
+    cout<<"\n\n"<<a<<' '<<k<<'\n';
+    cout<<"\n\n";
+    vector<pair<int,int>> vv(v.begin()+pos,v.end());
+    for(auto [x,y]:vv)cout<<x<<' '<<y<<'\n';
+    cout<<"\n\n";
 
-    // Display
-    void show() {
-        for(int i = 0; i < size; i++) {
-            cout << arr[i] << " ";
+    if(a==0){
+        sort(vv.begin(),vv.end(),cmp1);
+        for(int i=0;i<k;i++)ans+=vv[i].second;
+    }
+    else {
+        sort(vv.rbegin(),vv.rend());
+        for(int i=0;i<a;i++){
+            ans+=vv[i].first;
         }
-        cout << endl;
     }
+    for(auto [x,y]:vv)cout<<x<<' '<<y<<'\n';
+    cout<<"\n\n";
+    cout<<ans;
 
-    // Destructor
-    ~Array_sort() {
-        delete[] arr;
-    }
-};
-
+}
 int main() {
-    int a[5] = {3,6,9,2,8};
-
-    Array_sort a1(a, 5);   // ✅ correct
-
-    // Shallow Copy
-    Array_sort a2 = a1;
-
-    // Deep Copy
-    Array_sort a3 = a1.deepCopy();
-
-    cout << "\nOriginal array sorted:\n";
-    a1.sort_array();
-    a1.show();
-
-    cout << "Shallow Copy array:\n";
-    a2.show();
-
-    cout << "Deep Copy array:\n";
-    a3.show();
-
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t=1;
+    // cin>>t;
+    while(t--){solve();cout<<'\n';}
     return 0;
 }

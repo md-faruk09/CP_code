@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
  
-#define nl "\n"
-#define nf cout<<"\n"
+#define nl '\n'
+#define nf cout<<'\n'
 #define int long long
 #define cy cout << "YES\n"
 #define cn cout << "NO\n"
@@ -15,25 +15,23 @@ using namespace std;
 
 void solve(){
     int n;cin>>n;
-    vll a(n);fr(n)cin>>a[i];
-    multiset<int>ml;
-    int mx=-1,l=0,r=0;
-    while(r<n && l<n){
-        while(ml.find(a[r])!=ml.end()){
-            ml.erase(a[l++]);
-        }
-        ml.insert(a[r]);
-        mx=max(mx,(int)(r-l+1));
-        r++;
-        // frg(x,ml)cout<<x<<" ";nf;
-        // cout<<l<<' '<<r<<"   "<<mx<<nl;nf;
+    vector<int> a(n);
+    for(auto &i:a)cin>>i;
+    map<int,int> mp;
+    int l=0;
+    int ans=0;
+    for(int r=0;r<n;r++){
+        while(mp[a[r]])mp[a[l++]]=0;
+        mp[a[r]]++;
+        ans=max(ans,r-l+1);
     }
-    cout<<mx<<nl;
+    cout<<ans;
 }
 int32_t main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t=1;
-    while(t--)solve();
+    // cin>>t;
+    while(t--){solve();cout<<'\n';}
     return 0;
 }

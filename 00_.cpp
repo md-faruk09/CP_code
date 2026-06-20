@@ -1,27 +1,62 @@
 #include <bits/stdc++.h>
 using namespace std;
- 
-#define nl "\n"
-#define nf cout<<"\n"
-#define int long long
-#define cy cout << "YES\n"
-#define cn cout << "NO\n"
-#define fr(N)for(int i=0;i<N;i++)
-#define frg(x,a) for(auto x:a)
-#define vll vector<long long>
-#define all(v) v.begin(),v.end()
-#define rall(v) v.rbegin(),v.rend()
 
+bool cmp(pair<int,int> a,pair<int,int> b){
+    return max(a.first,a.second)> max(b.first,b.second);
+}
+
+bool cmp1(pair<int,int> a, pair<int,int> b){
+    return a.second>b.second;
+}
 
 void solve(){
-   int x,y;cin>>x>>y;
-   if(x<y)cy;
-   else cn;
+    int n,a,k;cin>>n>>a>>k;
+    vector<pair<int,int>> v(n);
+    for(int i=0;i<n;i++){
+        cin>>v[i].first;
+        cin>>v[i].second;
+    }
+    sort(v.begin(),v.end(),cmp);
+    //for(auto [x,y]:v)cout<<x<<' '<<y<<'\n';
+    long long ans=0;
+    int pos=0;
+    for(int i=0;i<n;i++){
+        if(a>0 && k>0 && v[i].first>=v[i].second){
+            ans+=v[i].first;
+            a--;
+        }
+        else if(k>0 && a>0 && v[i].second>=v[i].first){
+            ans+=v[i].second;
+            k--;
+        }
+        else {
+            pos=i;
+            break;
+        }
+    }
+    //cout<<"\n\n"<<a<<' '<<k<<'\n';
+    vector<pair<int,int>> vv(v.begin()+pos,v.end());
+    //for(auto [x,y]:vv)cout<<x<<' '<<y<<'\n';
+
+    if(a==0){
+        sort(vv.begin(),vv.end(),cmp1);
+        for(int i=0;i<k;i++)ans+=vv[i].second;
+    }
+    else {
+        sort(vv.rbegin(),vv.rend());
+        for(int i=0;i<a;i++){
+            ans+=vv[i].first;
+        }
+    }
+    // for(auto [x,y]:vv)cout<<x<<' '<<y<<'\n';
+    cout<<ans;
+
 }
-int32_t main() {
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t=1;
-    while(t--)solve();
+    // cin>>t;
+    while(t--){solve();cout<<'\n';}
     return 0;
 }
