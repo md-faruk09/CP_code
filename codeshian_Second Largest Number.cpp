@@ -6,9 +6,6 @@ using namespace std;
 #define int long long
 #define cy cout << "YES\n"
 #define cn cout << "NO\n"
-#define fr(N)for(int i=0;i<N;i++)
-#define frg(x,a) for(auto x:a)
-#define vll vector<long long>
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
 
