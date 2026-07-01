@@ -15,18 +15,25 @@ using namespace std;
 
 void solve(){
     int n,k;cin>>n>>k;
-    multiset<int>ml;
-    fr(n){
-        int x;cin>>x;
-        ml.insert(x);
-    }
-    for(int i=0;i<k;i++){
-        int x=*ml.begin()+*ml.rbegin();
-        ml.erase(ml.begin());
-        ml.erase(--ml.end());
-        ml.insert(x);
-    }
-    for(auto x:ml)cout<<x<<' ';nf;
+    // multiset<int>ml;
+    // fr(n){
+    //     int x;cin>>x;
+    //     ml.insert(x);
+    // }
+    // for(int i=0;i<k;i++){
+    //     int x=*ml.begin()+*ml.rbegin();
+    //     ml.erase(ml.begin());
+    //     ml.erase(--ml.end());
+    //     ml.insert(x);
+    // }
+    // for(auto x:ml)cout<<x<<' ';nf;
+
+    vector<int> a(n);
+    for(auto &i:a)cin>>i;
+    int sum=accumulate(a.begin(),a.begin()+k,a.back());
+    if(n==k+1){cout<<sum<<nl;return;}
+    vector<int> ans(a.begin()+k, a.begin()+n-1);
+    for(auto i:ans)cout<<i<<' ';cout<<sum<<nl;
 }
 int32_t main() {
     ios::sync_with_stdio(false);

@@ -11,32 +11,19 @@ using namespace std;
 
 void solve(){
     int n;cin>>n;
-    vector<int> a(n);
-    for(auto &i:a)cin>>i;
-    map<int,int>mp;
-    for(auto i:a)mp[i]++;
-    if(mp.size()==1){cout<<0<<nl;return;}
-    sort(rall(a));
-    vector<int> v(__lg(a[0])+1);
+    multiset<int> ml;
     for(int i=0;i<n;i++){
-        for(int j=__lg(a[0]) ;j>=0;j--){
-            v[j]+=((a[i]>>j)&1);
-        }
-    }
-    int cnt=0;
-    for(int i=0;i<v.size();i++){
-        if(v[i]==0)cnt++;
-        else break;
+        int x;cin>>x;
+        ml.insert(x);
     }
     int ans=0;
-    for(int i=0;i<n;i++){
-        ans+=(__lg(a[i])-cnt);
+    while(*ml.begin()!=*ml.rbegin()){
+        int it=*ml.rbegin();
+        ml.erase(ml.find(it));
+        ml.insert(it/2);
+        ans++;
     }
-    cout<<ans<<nl;
-    // for(auto i:v)cout<<i<<' ';
-    // nf;
-
-    
+    cout<<ans<<'\n';
 }
 int32_t main() {
     ios::sync_with_stdio(false);

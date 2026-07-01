@@ -1,35 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
- 
+
 #define nl '\n'
 #define nf cout<<'\n'
 #define int long long
 #define cy cout << "YES\n"
 #define cn cout << "NO\n"
-#define fr(N)for(int i=0;i<N;i++)
-#define frg(x,a) for(auto x:a)
-#define vll vector<long long>
 #define all(v) v.begin(),v.end()
 #define rall(v) v.rbegin(),v.rend()
-
 
 void solve(){
     int n;cin>>n;
     vector<int> a(n);
-    int sum=0;
-    for(auto &i:a){cin>>i;sum|=i;}
-    // cout<<sum<<nl;
-    int ans=n;
-    int s=0;
+    for(auto &i:a)cin>>i;
+    int oor=0;
+    for(auto i:a)oor|=i;
+    int ans=0;
+    a.push_back(oor);
     for(int i=0;i<n;i++){
-        s|=a[i];
-        if(s==sum){
-            ans--;
-            s=0;
-        }
-    
+        if(a[i]==oor)continue;
+        a[i+1]=a[i]|a[i+1];
+        ans++;
     }
-    cout<<ans;
+    cout<<ans<<nl;
 
 }
 int32_t main() {
@@ -37,6 +30,6 @@ int32_t main() {
     cin.tie(nullptr);
     int t=1;
     cin>>t;
-    while(t--){solve();cout<<'\n';}
+    while(t--){solve();}
     return 0;
 }

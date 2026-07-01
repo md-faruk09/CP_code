@@ -1,52 +1,108 @@
-
-/*    
-
-
-       ████████████████████████████████████████████████████
-       ██               Md.Faruk Hossain                 ██
-       ██    ███████╗ █████╗ ██████╗ ██╗   ██╗██╗  ██╗   ██
-       ██    ██╔════╝██╔══██╗██╔══██╗██║   ██║██║ ██╔╝   ██
-       ██    █████╗  ███████║██████╔╝██║   ██║█████╔╝    ██
-       ██    ██╔══╝  ██╔══██║██╔══██╗██║   ██║██╔═██╗    ██
-       ██    ██║     ██║  ██║██║  ██║╚██████╔╝██║  ██╗   ██
-       ██    ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ██
-       ████████████████████████████████████████████████████
-
-*/
-
-
 #include <bits/stdc++.h>
 using namespace std;
- 
-#define nl "\n"
-#define nf cout<<"\n"
-#define int long long
-#define cy cout << "YES\n"
-#define cn cout << "NO\n"
-#define fr(N)for(int i=0;i<N;i++)
-#define frg(x,a) for(auto x:a)
-#define vll vector<long long>
-#define all(v) v.begin(),v.end()
-#define rall(v) v.rbegin(),v.rend()
 
-#define fastio ios_base::sync_with_stdio(0);cout.tie(nullptr);cin.tie(nullptr)
+class Book {
+public:
+    string title, author, isbn;
+    bool issued;
 
-void solve(){
-    int n,x;cin>>n>>x;
-    vll a(n);fr(n)cin>>a[i];
-    int sum=0,r=0,l=0,ans=0;
-    while(r<n){
-        sum+=a[r++];
-        while(sum>=x){
-            if(sum==x)ans++;
-            sum-=a[l++];
+    Book() {}
+
+    Book(string t, string a, string i, string status) {
+        title = t;
+        author = a;
+        isbn = i;
+        issued = (status == "Issued");
+    }
+};
+
+class Library {
+private:
+    vector<Book> books;
+
+public:
+    void addBook(Book b) {
+        books.push_back(b);
+    }
+
+    void issueBook(string isbn) {
+        for (auto &b : books) {
+            if (b.isbn == isbn) {
+                if (!b.issued) {
+                    b.issued = true;
+                    cout << "Book issued: " << b.title << '\n';
+                } else {
+                    cout << "Book already issued\n";
+                }
+                return;
+            }
+        }
+        cout << "Book not found\n";
+    }
+
+    void returnBook(string isbn) {
+        for (auto &b : books) {
+            if (b.isbn == isbn) {
+                if (b.issued) {
+                    b.issued = false;
+                    cout << "Book returned: " << b.title << '\n';
+                } else {
+                    cout << "Book was not issued\n";
+                }
+                return;
+            }
+        }
+        cout << "Book not found\n";
+    }
+
+    void listBooks() {
+        vector<Book> available;
+
+        for (auto b : books) {
+            if (!b.issued)
+                available.push_back(b);
+        }
+
+        sort(available.begin(), available.end(),
+             [](Book a, Book b) {
+                 return a.title < b.title;
+             });
+
+        for (auto b : available) {
+            cout << b.title << " by " << b.author
+                 << " (Available)\n";
         }
     }
-    cout<<ans<<nl;
-}
-int32_t main() {
-    fastio;
-    int t=1;
-    while(t--)solve();
+};
+
+int main() {
+    int B;
+    cin >> B;
+
+    Library lib;
+
+    for (int i = 0; i < B; i++) {
+        string title, author, isbn, status;
+        cin >> title >> author >> isbn >> status;
+        lib.addBook(Book(title, author, isbn, status));
+    }
+
+    string op;
+    while (cin >> op) {
+        if (op == "issue") {
+            string isbn;
+            cin >> isbn;
+            lib.issueBook(isbn);
+        }
+        else if (op == "return") {
+            string isbn;
+            cin >> isbn;
+            lib.returnBook(isbn);
+        }
+        else if (op == "list") {
+            lib.listBooks();
+        }
+    }
+
     return 0;
 }

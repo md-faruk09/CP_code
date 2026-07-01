@@ -1,14 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define nl '\n'
+#define nf cout<<'\n'
+#define int long long
+#define cy cout << "YES\n"
+#define cn cout << "NO\n"
+#define all(v) v.begin(),v.end()
+#define rall(v) v.rbegin(),v.rend()
 
 void solve(){
     int n;cin>>n;
-    vector<pair<long long,long long>> v(n);
+    vector<pair<int,int>> v(n);
     for(auto &[i,j]:v)cin>>j>>i;
     sort(v.rbegin(),v.rend());
     // for(auto [i,j]:v)cout<<i<<' '<<j<<'\n';
-    long long mx=0;
+    int mx=0;
     for(int i=0;i<n;i++){
         mx=max((long long)v[i].second,mx);
         v[i].second=mx;
@@ -22,7 +29,7 @@ void solve(){
         cout<<it->second<<'\n';
     }
 }
-int main() {
+int32_t main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     int t=1;
